@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     # third-party
     "rest_framework",
     "rest_framework_simplejwt",
-    # custom app
-    "user",
+    # custom apps
+    "book",
+    "user"
 ]
 
 MIDDLEWARE = [
