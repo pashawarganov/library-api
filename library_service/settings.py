@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     "borrowing",
     "book",
     "user"
+    "payment"
 ]
 
 MIDDLEWARE = [
@@ -140,3 +141,7 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "AUTH_HEADER_NAME": "HTTP_AUTHORIZE"
 }
+
+#added stripe keys
+STRIPE_SECRET_KEY = "sk_test_51QAprJFopT5YOwICqgJaPwNU705IqyI50BJCAuKB2B3mBRVTLxFJevUDMHOXKGvJVrFQLpW9P9Ao294uV5eUqcbJ00eYlJqCep"
+STRIPE_PUBLISHABLE_KEY = "pk_test_51QAprJFopT5YOwICkbTrvXBtY5Am8h4DhNzdFdT9hlpSPaGIPLhFRxszDddv7ZupZgkSGYeKoriQMMM485vCOhty00fRWO2bjk"
