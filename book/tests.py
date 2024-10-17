@@ -3,7 +3,7 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from books.models import Book
+from book.models import Book
 
 
 class BookTests(APITestCase):
@@ -33,14 +33,14 @@ class BookTests(APITestCase):
         self.user_token = response.data["access"]
 
     def test_list_books(self):
-        response = self.client.get(reverse("books:book-list"))
+        response = self.client.get(reverse("book:book-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(len(response.data), 1)
 
     def test_create_book_as_admin(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.admin_token)
         response = self.client.post(
-            reverse("books:book-list"),
+            reverse("book:book-list"),
             {
                 "title": "New Book",
                 "author": "New Author",
@@ -54,7 +54,7 @@ class BookTests(APITestCase):
     def test_create_book_as_user(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.user_token)
         response = self.client.post(
-            reverse("books:book-list"),
+            reverse("book:book-list"),
             {
                 "title": "New Book",
                 "author": "New Author",
@@ -68,7 +68,7 @@ class BookTests(APITestCase):
     def test_update_book_as_admin(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.admin_token)
         response = self.client.put(
-            reverse("books:book-detail", args=[self.book.id]),
+            reverse("book:book-detail", args=[self.book.id]),
             {
                 "title": "Updated Book",
                 "author": "Updated Author",
@@ -83,6 +83,6 @@ class BookTests(APITestCase):
 
     def test_delete_book_as_admin(self):
         self.client.credentials(HTTP_AUTHORIZATION="Bearer " + self.admin_token)
-        response = self.client.delete(reverse("books:book-detail", args=[self.book.id]))
+        response = self.client.delete(reverse("book:book-detail", args=[self.book.id]))
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
         self.assertFalse(Book.objects.filter(id=self.book.id).exists())

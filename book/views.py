@@ -1,7 +1,7 @@
 from rest_framework import viewsets, permissions
 
-from books.models import Book
-from books.serializers import BookSerializer
+from book.models import Book
+from book.serializers import BookSerializer
 
 
 class BookViewSet(viewsets.ModelViewSet):
