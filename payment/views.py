@@ -1,21 +1,21 @@
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework import status
 import stripe
 from django.conf import settings
-from django.urls import reverse
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
+
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import viewsets
 
 from .models import Payment
 from borrowing.models import Borrowing
-from rest_framework.permissions import IsAuthenticated
 from payment.serializers import PaymentSerializer
-from rest_framework.views import APIView
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 FINE_MULTIPLIER = 2
-
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
