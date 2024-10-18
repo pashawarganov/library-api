@@ -39,7 +39,7 @@ class Borrowing(models.Model):
                 "Expected return date cannot be earlier than the borrow date."
             )
 
-        if self.book.inventory == 0:
+        if self.book.inventory <= 0:
             raise ValidationError(
                 f"The book '{self.book.title}' is not available for borrowing."
             )
