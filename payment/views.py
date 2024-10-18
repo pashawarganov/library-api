@@ -9,7 +9,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
 
-from .models import Payment
+from payment.models import Payment
 from borrowing.models import Borrowing
 from payment.serializers import PaymentSerializer
 
