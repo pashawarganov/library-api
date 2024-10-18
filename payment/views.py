@@ -48,7 +48,6 @@ class PaymentViewSet(viewsets.ModelViewSet):
                 type="FINE",
             )
 
-            # Створення Stripe сесії для оплати штрафу
             success_url = (
                 request.build_absolute_uri(reverse("payment:payment-success"))
                 + "?session_id={CHECKOUT_SESSION_ID}"
@@ -77,7 +76,6 @@ class PaymentViewSet(viewsets.ModelViewSet):
             except Exception as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
-            # Оновлення сесії для оплати штрафу
             payment_fine.session_url = session.url
             payment_fine.session_id = session.id
             payment_fine.save()
