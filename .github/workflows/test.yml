@@ -41,9 +41,14 @@ jobs:
 
       - name: Wait for Postgres
         run: |
-          while ! pg_isready -h localhost -p 5432 -U test_user; do
-            echo "Waiting for PostgreSQL..."
-            sleep 2
+          for i in (1..30): do
+            if pg_isready -h localhost -p 5432 -U test_user; then
+              echo "PostgreSQL is ready!"
+              break
+            else
+              echo "Waiting for PostgreSQL... {$i}"
+              sleep 2
+            fi
           done
 
       - name: Set Dummy Environment Variables
