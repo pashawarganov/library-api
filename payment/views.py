@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from .models import Payment
 from borrowing.models import Borrowing
 from rest_framework.permissions import IsAuthenticated
-from .serializers import PaymentSerializer
+from payment.serializers import PaymentSerializer
 from rest_framework.views import APIView
 
 
