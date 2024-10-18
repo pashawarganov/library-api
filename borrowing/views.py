@@ -5,7 +5,8 @@ from borrowing.models import Borrowing
 from borrowing.serializers import (
     BorrowingListSerializer,
     BorrowingDetailSerializer,
-    BorrowingSerializer, BorrowingCreateSerializer,
+    BorrowingSerializer,
+    BorrowingCreateSerializer,
 )
 
 
