@@ -1,10 +1,14 @@
-from rest_framework import viewsets
+from asgiref.sync import async_to_sync
+from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 
 from borrowing.models import Borrowing
+from borrowing.notification_when_borrowing_created import \
+    send_borrowing_notification
 from borrowing.serializers import (
     BorrowingListSerializer,
     BorrowingDetailSerializer,
+    BorrowingSerializer,
 )
 
 
@@ -26,3 +30,15 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             return BorrowingListSerializer
         elif self.action == "retrieve":
             return BorrowingDetailSerializer
+        return BorrowingSerializer
+
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+
+        if response.status_code == status.HTTP_201_CREATED:
+            borrowing = response.data
+            message = f"New borrowing created: {borrowing["id"]}"
+
+            async_to_sync(send_borrowing_notification)(message)
+
+        return response
