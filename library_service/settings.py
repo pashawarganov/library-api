@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 
+from decouple import config
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -140,6 +142,4 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {"AUTH_HEADER_NAME": "HTTP_AUTHORIZE"}
 
-# added stripe keys
-STRIPE_SECRET_KEY = "sk_test_51QAprJFopT5YOwICqgJaPwNU705IqyI50BJCAuKB2B3mBRVTLxFJevUDMHOXKGvJVrFQLpW9P9Ao294uV5eUqcbJ00eYlJqCep"
-STRIPE_PUBLISHABLE_KEY = "pk_test_51QAprJFopT5YOwICkbTrvXBtY5Am8h4DhNzdFdT9hlpSPaGIPLhFRxszDddv7ZupZgkSGYeKoriQMMM485vCOhty00fRWO2bjk"
+STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
