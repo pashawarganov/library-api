@@ -5,6 +5,7 @@ import stripe
 from django.conf import settings
 from django.urls import reverse
 from django.shortcuts import get_object_or_404
+
 from .models import Payment
 from borrowing.models import Borrowing
 from rest_framework.permissions import IsAuthenticated
@@ -13,6 +14,7 @@ from rest_framework.views import APIView
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
+FINE_MULTIPLIER = 2
 
 
 class PaymentViewSet(viewsets.ModelViewSet):
@@ -26,6 +28,68 @@ class PaymentViewSet(viewsets.ModelViewSet):
         amount = data.get("money")
 
         borrowing = get_object_or_404(Borrowing, id=borrowing_id)
+
+        if (
+            borrowing.actual_return_date
+            and borrowing.actual_return_date > borrowing.expected_return_date
+        ):
+            overdue_days = (
+                borrowing.actual_return_date - borrowing.expected_return_date
+            ).days
+            daily_fee = borrowing.book.daily_fee
+            money_to_pay = overdue_days * daily_fee * FINE_MULTIPLIER
+
+            payment_fine = Payment.objects.create(
+                borrowing_id=borrowing,
+                session_url="",
+                session_id="",
+                money_to_pay=money_to_pay,
+                status="PENDING",
+                type="FINE",
+            )
+
+            # Створення Stripe сесії для оплати штрафу
+            success_url = (
+                request.build_absolute_uri(reverse("payment:payment-success"))
+                + "?session_id={CHECKOUT_SESSION_ID}"
+            )
+            cancel_url = request.build_absolute_uri(reverse("payment:payment-cancel"))
+
+            try:
+                session = stripe.checkout.Session.create(
+                    payment_method_types=["card"],
+                    line_items=[
+                        {
+                            "price_data": {
+                                "currency": "usd",
+                                "product_data": {
+                                    "name": f"Fine for overdue: {borrowing.book.title}",
+                                },
+                                "unit_amount": int(money_to_pay * 100),
+                            },
+                            "quantity": 1,
+                        },
+                    ],
+                    mode="payment",
+                    success_url=success_url,
+                    cancel_url=cancel_url,
+                )
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Оновлення сесії для оплати штрафу
+            payment_fine.session_url = session.url
+            payment_fine.session_id = session.id
+            payment_fine.save()
+
+            return Response(
+                {
+                    "fine_payment_id": payment_fine.id,
+                    "session_url": session.url,
+                    "amount": money_to_pay,
+                },
+                status=status.HTTP_200_OK,
+            )
 
         success_url = (
             request.build_absolute_uri(reverse("payment:payment-success"))
