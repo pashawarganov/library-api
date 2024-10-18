@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     # custom apps
     "borrowing",
     "book",
-    "user"
+    "user",
+    "payment",
 ]
 
 MIDDLEWARE = [
@@ -146,6 +147,6 @@ REST_FRAMEWORK = {
     ),
 }
 
-SIMPLE_JWT = {
-    "AUTH_HEADER_NAME": "HTTP_AUTHORIZE"
-}
+SIMPLE_JWT = {"AUTH_HEADER_NAME": "HTTP_AUTHORIZE"}
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
