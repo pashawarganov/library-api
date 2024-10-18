@@ -29,9 +29,6 @@ class Borrowing(models.Model):
         )
 
     def clean(self):
-        if not self.borrow_date:
-            self.borrow_date = date.today()
-
         if self.expected_return_date and self.expected_return_date < self.borrow_date:
             raise ValidationError(
                 "Expected return date cannot be set up earlier than the borrow date."
