@@ -11,10 +11,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
-
-from decouple import config
-
 import os
+
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,11 +90,11 @@ WSGI_APPLICATION = "library_service.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "HOST": os.getenv("POSTGRES_HOST", "localhost"),
-        "NAME": os.getenv("POSTGRES_DB", "library"),
-        "USER": os.getenv("POSTGRES_USER", "library"),
-        "PASSWORD": os.getenv("POSTGRES_PASSWORD", "library"),
-        "PORT": "5432",
+        "HOST": os.getenv("POSTGRES_HOST"),
+        "NAME": os.getenv("POSTGRES_DB"),
+        "USER": os.getenv("POSTGRES_USER"),
+        "PASSWORD": os.getenv("POSTGRES_PASSWORD"),
+        "PORT": os.getenv("POSTGRES_PORT"),
     }
 }
 
@@ -147,4 +149,4 @@ REST_FRAMEWORK = {
 
 SIMPLE_JWT = {"AUTH_HEADER_NAME": "HTTP_AUTHORIZE"}
 
-STRIPE_SECRET_KEY = config("STRIPE_SECRET_KEY")
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
