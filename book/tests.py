@@ -11,7 +11,9 @@ class BookTests(APITestCase):
         self.admin_user = get_user_model().objects.create_superuser(
             email="admin@admin.com", password="admin123"
         )
-        self.user = get_user_model().objects.create_user(email="user@user.com", password="user123")
+        self.user = get_user_model().objects.create_user(
+            email="user@user.com", password="user123"
+        )
         self.book = Book.objects.create(
             title="Test Book",
             author="Test Author",

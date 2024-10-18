@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
+
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -26,7 +27,10 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
         borrowing = get_object_or_404(Borrowing, id=borrowing_id)
 
-        success_url = request.build_absolute_uri(reverse("payment:payment-success")) + "?session_id={CHECKOUT_SESSION_ID}"
+        success_url = (
+            request.build_absolute_uri(reverse("payment:payment-success"))
+            + "?session_id={CHECKOUT_SESSION_ID}"
+        )
         cancel_url = request.build_absolute_uri(reverse("payment:payment-cancel"))
 
         try:
@@ -49,10 +53,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
                 cancel_url=cancel_url,
             )
         except Exception as e:
-            return Response(
-                {"error": str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         payment = Payment.objects.create(
             borrowing_id=borrowing,
@@ -60,15 +61,11 @@ class PaymentViewSet(viewsets.ModelViewSet):
             session_id=session.id,
             money_to_pay=amount,
             status="PENDING",
-            type="PAYMENT"
+            type="PAYMENT",
         )
 
         serializer = self.get_serializer(payment)
-        return Response(
-            serializer.data,
-            status=status.HTTP_201_CREATED
-        )
-
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
 class PaymentSuccessView(APIView):
@@ -77,7 +74,7 @@ class PaymentSuccessView(APIView):
         if not session_id:
             return Response(
                 {"error": "Session ID not provided."},
-                status=status.HTTP_400_BAD_REQUEST
+                status=status.HTTP_400_BAD_REQUEST,
             )
 
         try:
@@ -89,18 +86,15 @@ class PaymentSuccessView(APIView):
 
                 return Response(
                     {"message": "Payment was successful and marked as paid."},
-                    status=status.HTTP_200_OK
+                    status=status.HTTP_200_OK,
                 )
             else:
                 return Response(
                     {"message": "Payment not completed yet."},
-                    status=status.HTTP_400_BAD_REQUEST
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
         except Exception as e:
-            return Response(
-                {"error": str(e)},
-                status=status.HTTP_400_BAD_REQUEST
-            )
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class PaymentCancelView(APIView):
@@ -109,5 +103,5 @@ class PaymentCancelView(APIView):
             {
                 "message": "Payment was cancelled. You can retry payment within 24 hours."
             },
-            status=status.HTTP_200_OK
+            status=status.HTTP_200_OK,
         )
