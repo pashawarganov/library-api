@@ -26,7 +26,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
 
         borrowing = get_object_or_404(Borrowing, id=borrowing_id)
 
-        success_url = request.build_absolute_uri(reverse("payment:payment-success"))
+        success_url = request.build_absolute_uri(reverse("payment:payment-success")) + "?session_id={CHECKOUT_SESSION_ID}"
         cancel_url = request.build_absolute_uri(reverse("payment:payment-cancel"))
 
         try:
@@ -70,18 +70,44 @@ class PaymentViewSet(viewsets.ModelViewSet):
         )
 
 
+
 class PaymentSuccessView(APIView):
     def get(self, request):
-        return Response(
-            {
-                "message": "Payment Successful!"
-            }, status=status.HTTP_200_OK
-        )
+        session_id = request.query_params.get("session_id")
+        if not session_id:
+            return Response(
+                {"error": "Session ID not provided."},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            session = stripe.checkout.Session.retrieve(session_id)
+            if session.payment_status == "paid":
+                payment = get_object_or_404(Payment, session_id=session_id)
+                payment.status = "PAID"
+                payment.save()
+
+                return Response(
+                    {"message": "Payment was successful and marked as paid."},
+                    status=status.HTTP_200_OK
+                )
+            else:
+                return Response(
+                    {"message": "Payment not completed yet."},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 
 class PaymentCancelView(APIView):
     def get(self, request):
         return Response(
             {
-                "message": "Payment Cancelled."
-            }, status=status.HTTP_200_OK
+                "message": "Payment was cancelled. You can retry payment within 24 hours."
+            },
+            status=status.HTTP_200_OK
         )
