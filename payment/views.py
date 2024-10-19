@@ -17,6 +17,7 @@ from payment.serializers import PaymentSerializer
 stripe.api_key = settings.STRIPE_SECRET_KEY
 FINE_MULTIPLIER = 2
 
+
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer

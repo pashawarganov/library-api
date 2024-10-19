@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from borrowing.models import Borrowing
+from payment.models import Payment
 
 
 class BorrowingSerializer(serializers.ModelSerializer):
@@ -72,9 +73,16 @@ class BorrowingCreateSerializer(BorrowingSerializer):
     def validate(self, attrs):
         book = attrs["book"]
 
-        if book.inventory == 0:
+        if book.inventory <= 0:
             raise serializers.ValidationError(
                 "This book is not currently available for borrowing."
+            )
+        if Payment.objects.filter(
+            borrowing__user=self.context["request"].user,
+            status="PENDING",
+        ).exists():
+            raise serializers.ValidationError(
+                "You have a pending payment. Complete the payment before borrowing a new book."
             )
 
         return attrs
@@ -86,3 +94,17 @@ class BorrowingCreateSerializer(BorrowingSerializer):
         book.save()
 
         return Borrowing.objects.create(user=user, **validated_data)
+
+
+class BorrowingReturnSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Borrowing
+        fields = ("id", "actual_return_date")
+
+    def update(self, instance, validated_data):
+        instance.actual_return_date = validated_data.get(
+            "actual_return_date", instance.actual_return_date
+        )
+        instance.return_borrowing()
+        instance.save()
+        return instance

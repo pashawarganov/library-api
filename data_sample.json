@@ -1,0 +1,541 @@
+[
+  {
+    "model": "book.book",
+    "pk": 1,
+    "fields": {
+      "title": "1984",
+      "author": "George Orwell",
+      "cover": "HARD",
+      "inventory": "3",
+      "daily_fee": "2.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 2,
+    "fields": {
+      "title": "The Little Prince",
+      "author": "Antoine de Saint-Exupéry",
+      "cover": "SOFT",
+      "inventory": "7",
+      "daily_fee": "2.59"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 3,
+    "fields": {
+      "title": "And Then There Were None",
+      "author": "Agatha Christie",
+      "cover": "HARD",
+      "inventory": "6",
+      "daily_fee": "4.69"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 4,
+    "fields": {
+      "title": "The Hobbit",
+      "author": "J. R. R. Tolkien",
+      "cover": "HARD",
+      "inventory": "10",
+      "daily_fee": "6.90"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 5,
+    "fields": {
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "cover": "SOFT",
+      "inventory": "3",
+      "daily_fee": "4.89"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 6,
+    "fields": {
+      "title": "The Da Vinci Code",
+      "author": "Dan Brown",
+      "cover": "HARD",
+      "inventory": "6",
+      "daily_fee": "7.19"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 7,
+    "fields": {
+      "title": "The Alchemist",
+      "author": "Paulo Coelho",
+      "cover": "HARD",
+      "inventory": "6",
+      "daily_fee": "6.79"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 8,
+    "fields": {
+      "title": "The Bridges of Madison County",
+      "author": "Robert James Waller",
+      "cover": "HARD",
+      "inventory": "5",
+      "daily_fee": "4.39"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 9,
+    "fields": {
+      "title": "Ben-Hur: A Tale of the Christ",
+      "author": "Lew Wallace",
+      "cover": "HARD",
+      "inventory": "8",
+      "daily_fee": "7.89"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 10,
+    "fields": {
+      "title": "One Hundred Years of Solitude",
+      "author": "Gabriel García Márquez",
+      "cover": "HARD",
+      "inventory": "2",
+      "daily_fee": "10.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 11,
+    "fields": {
+      "title": "Heidi",
+      "author": "Johanna Spyri",
+      "cover": "HARD",
+      "inventory": "6",
+      "daily_fee": "3.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 12,
+    "fields": {
+      "title": "Black Beauty",
+      "author": "Anna Sewell",
+      "cover": "HARD",
+      "inventory": "4",
+      "daily_fee": "6.49"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 13,
+    "fields": {
+      "title": "The Eagle Has Landed",
+      "author": "Jack Higgins",
+      "cover": "HARD",
+      "inventory": "7",
+      "daily_fee": "5.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 14,
+    "fields": {
+      "title": "The Ginger Man",
+      "author": "J. P. Donleavy",
+      "cover": "SOFT",
+      "inventory": "4",
+      "daily_fee": "8.19"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 15,
+    "fields": {
+      "title": "The Tale of Peter Rabbit",
+      "author": "Beatrix Potter",
+      "cover": "SOFT",
+      "inventory": "10",
+      "daily_fee": "3.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 16,
+    "fields": {
+      "title": "The Very Hungry Caterpillar",
+      "author": "Eric Carle",
+      "cover": "HARD",
+      "inventory": "7",
+      "daily_fee": "4.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 17,
+    "fields": {
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "cover": "HARD",
+      "inventory": "3",
+      "daily_fee": "9.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 18,
+    "fields": {
+      "title": "Cosmos",
+      "author": "Carl Sagan",
+      "cover": "HARD",
+      "inventory": "10",
+      "daily_fee": "7.99"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 19,
+    "fields": {
+      "title": "Angels & Demons",
+      "author": "Dan Brown",
+      "cover": "HARD",
+      "inventory": "4",
+      "daily_fee": "7.49"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 20,
+    "fields": {
+      "title": "Kane and Abel",
+      "author": "Jeffrey Archer",
+      "cover": "HARD",
+      "inventory": "4",
+      "daily_fee": "8.29"
+    }
+  },
+  {
+    "model": "book.book",
+    "pk": 21,
+    "fields": {
+      "title": "The Adventures of Pinocchio",
+      "author": "Carlo Collodi",
+      "cover": "SOFT",
+      "inventory": "11",
+      "daily_fee": "3.49"
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$6uM28XWOFX6ewyloJzjqmt$L+ZhofPylneoaL2iZS4sZu4ZMUNb4oIevfAdzOMn/eE=",
+      "is_superuser": true,
+      "first_name": "Vito",
+      "last_name": "Scaletta",
+      "email": "vito.scaletta@library.com",
+      "is_staff": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$73Z1Y57bcoscZ37s9rE9v0$4SEQ0TtXwJKzO5/CRdFSrTifatiPjkZ38gM2H8Kqsdg=",
+      "is_superuser": true,
+      "first_name": "Leo",
+      "last_name": "Galante",
+      "email": "leo.galante@library.com",
+      "is_staff": true,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$QtPol3T7x9quBj4BnbnVwW$UwT4kihkRfSvQEWEeuqVKwMgis2ikKVZfJDBcQMvOKY=",
+      "is_superuser": false,
+      "first_name": "Joe",
+      "last_name": "Barbaro",
+      "email": "joe.barbaro@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Henry",
+      "last_name": "Tomasino",
+      "email": "henry.tomasino@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l1$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Alberto",
+      "last_name": "Clemente",
+      "email": "alberto.clemente@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Carlo",
+      "last_name": "Falcone",
+      "email": "carlo.falcone@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Luca",
+      "last_name": "Gurino",
+      "email": "luca.gurino@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Eddie",
+      "last_name": "Scarpa",
+      "email": "eddie.scarpa@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Frank",
+      "last_name": "Vinci",
+      "email": "frank.vinci@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Derek",
+      "last_name": "Pappalardo",
+      "email": "derek.pappalardo@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "user.user",
+    "pk": 11,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$9yU0PLTDKlL02PedUtk2l2$LKjj8O1xGiPGEkDpjsHk87db1iLgt8dgDqECzcsivio",
+      "is_superuser": false,
+      "first_name": "Mike",
+      "last_name": "Bruski",
+      "email": "mike.bruski@library.com",
+      "is_staff": false,
+      "is_active": true
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 1,
+    "fields": {
+      "borrow_date": "2024-08-09",
+      "expected_return_date": "2024-08-12",
+      "actual_return_date": "2024-08-12",
+      "book": 1,
+      "user": 3
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 2,
+    "fields": {
+      "borrow_date": "2024-08-10",
+      "expected_return_date": "2024-08-12",
+      "actual_return_date": "2024-08-12",
+      "book": 2,
+      "user": 4
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 3,
+    "fields": {
+      "borrow_date": "2024-08-11",
+      "expected_return_date": "2024-08-15",
+      "actual_return_date": "2024-08-15",
+      "book": 5,
+      "user": 3
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 4,
+    "fields": {
+      "borrow_date": "2024-08-14",
+      "expected_return_date": "2024-08-15",
+      "actual_return_date": "2024-08-15",
+      "book": 6,
+      "user": 5
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 5,
+    "fields": {
+      "borrow_date": "2024-08-14",
+      "expected_return_date": "2024-08-15",
+      "actual_return_date": "2024-08-15",
+      "book": 6,
+      "user": 7
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 6,
+    "fields": {
+      "borrow_date": "2024-08-15",
+      "expected_return_date": "2024-08-19",
+      "actual_return_date": "2024-08-19",
+      "book": 18,
+      "user": 9
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 7,
+    "fields": {
+      "borrow_date": "2024-08-17",
+      "expected_return_date": "2024-08-19",
+      "actual_return_date": "2024-08-19",
+      "book": 21,
+      "user": 11
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 8,
+    "fields": {
+      "borrow_date": "2024-08-18",
+      "expected_return_date": "2024-08-20",
+      "actual_return_date": "2024-08-20",
+      "book": 13,
+      "user": 10
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 9,
+    "fields": {
+      "borrow_date": "2024-08-18",
+      "expected_return_date": "2024-08-20",
+      "actual_return_date": "2024-08-20",
+      "book": 13,
+      "user": 1
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 10,
+    "fields": {
+      "borrow_date": "2024-08-21",
+      "expected_return_date": "2024-08-23",
+      "actual_return_date": "2024-08-23",
+      "book": 18,
+      "user": 6
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 11,
+    "fields": {
+      "borrow_date": "2024-08-21",
+      "expected_return_date": "2024-08-23",
+      "actual_return_date": "2024-08-23",
+      "book": 18,
+      "user": 9
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 12,
+    "fields": {
+      "borrow_date": "2024-10-17",
+      "expected_return_date": "2024-10-20",
+      "book": 4,
+      "user": 2
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 13,
+    "fields": {
+      "borrow_date": "2024-10-18",
+      "expected_return_date": "2024-10-19",
+      "book": 3,
+      "user": 11
+    }
+  },
+  {
+    "model": "payment.payment",
+    "pk": 1,
+    "fields": {
+      "status": "PENDING",
+      "type": "PAYMENT",
+      "borrowing_id": 1,
+      "session_url": "http://example.com/payment/1",
+      "session_id": "session_1",
+      "money_to_pay": 15.00
+    }
+  },
+  {
+    "model": "payment.payment",
+    "pk": 2,
+    "fields": {
+      "status": "PAID",
+      "type": "FINE",
+      "borrowing_id": 2,
+      "session_url": "http://example.com/payment/2",
+      "session_id": "session_2",
+      "money_to_pay": 5.00
+    }
+  }
+]
