@@ -58,8 +58,9 @@ jobs:
           echo "POSTGRES_PASSWORD=test_password" >> $GITHUB_ENV
           echo "POSTGRES_HOST=localhost" >> $GITHUB_ENV
           echo "POSTGRES_PORT=5432" >> $GITHUB_ENV
-          echo "BOT_TOKEN=fake_bot_token_12345" >> $GITHUB_ENV
-          echo "CHAT_ID=fake_chat_id_67890" >> $GITHUB_ENV
+          echo "TEST_MODE=true" >> $GITHUB_ENV
+          echo "BOT_TOKEN=1234567890:ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi" >> $GITHUB_ENV
+          echo "CHAT_ID=-1001234567890" >> $GITHUB_ENV
 
       - name: Apply migrations
         run: python manage.py migrate
