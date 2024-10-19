@@ -1,18 +1,19 @@
 from asgiref.sync import async_to_sync
 from rest_framework import viewsets, status
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 
 from borrowing.models import Borrowing
 from borrowing.serializers import (
     BorrowingListSerializer,
     BorrowingDetailSerializer,
     BorrowingSerializer,
+    BorrowingCreateSerializer,
 )
 from telegram_bot import send_borrowing_notification
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (AllowAny,)
 
     def get_queryset(self):
         queryset = Borrowing.objects.all()
@@ -29,6 +30,9 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             return BorrowingListSerializer
         elif self.action == "retrieve":
             return BorrowingDetailSerializer
+        elif self.action == "create":
+            return BorrowingCreateSerializer
+
         return BorrowingSerializer
 
     def create(self, request, *args, **kwargs):
