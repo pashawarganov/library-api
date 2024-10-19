@@ -13,15 +13,27 @@ from telegram_bot import send_borrowing_notification
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
-    permission_classes = (AllowAny,)
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Borrowing.objects.all()
+        is_active = self.request.query_params.get("is_active")
+
+        if self.request.user.is_staff:
+            user_id = self.request.query_params.get("user_id", None)
+            if user_id:
+                queryset = queryset.filter(user_id=user_id)
+        else:
+            queryset = queryset.filter(user=self.request.user)
+
+        if is_active:
+            if is_active.lower() == "true":
+                queryset = queryset.filter(actual_return_date__isnull=True)
+            elif is_active.lower() == "false":
+                queryset = queryset.exclude(actual_return_date__isnull=True)
 
         if self.action in ["list", "retrieve"]:
-            return queryset.select_related("book", "user").filter(
-                user=self.request.user
-            )
+            queryset = queryset.select_related("book", "user")
 
         return queryset
 
