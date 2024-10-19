@@ -495,6 +495,26 @@
     }
   },
   {
+    "model": "borrowing.borrowing",
+    "pk": 12,
+    "fields": {
+      "borrow_date": "2024-10-17",
+      "expected_return_date": "2024-10-20",
+      "book": 4,
+      "user": 2
+    }
+  },
+  {
+    "model": "borrowing.borrowing",
+    "pk": 13,
+    "fields": {
+      "borrow_date": "2024-10-18",
+      "expected_return_date": "2024-10-19",
+      "book": 3,
+      "user": 11
+    }
+  },
+  {
     "model": "payment.payment",
     "pk": 1,
     "fields": {
