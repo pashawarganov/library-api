@@ -111,7 +111,6 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                 f"*User ID: {borrowing['user']}\n"
                 f"*Borrow Date: {borrowing['borrow_date']}\n"
                 f"*Expected Return Date: {borrowing['expected_return_date']}\n"
-                f"*Actual Return Date: {borrowing['actual_return_date']}"
             )
 
             async_to_sync(send_borrowing_notification)(message)
