@@ -3,13 +3,12 @@ from rest_framework import viewsets, status
 from rest_framework.permissions import IsAuthenticated
 
 from borrowing.models import Borrowing
-from borrowing.notification_when_borrowing_created import \
-    send_borrowing_notification
 from borrowing.serializers import (
     BorrowingListSerializer,
     BorrowingDetailSerializer,
     BorrowingSerializer,
 )
+from telegram_bot import send_borrowing_notification
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
@@ -37,7 +36,15 @@ class BorrowingViewSet(viewsets.ModelViewSet):
 
         if response.status_code == status.HTTP_201_CREATED:
             borrowing = response.data
-            message = f"New borrowing created: {borrowing["id"]}"
+            message = (
+                f"New Borrowing Created:\n"
+                f"*ID: {borrowing['id']}\n"
+                f"*Book ID: {borrowing['book']}\n"
+                f"*User ID: {borrowing['user']}\n"
+                f"*Borrow Date: {borrowing['borrow_date']}\n"
+                f"*Expected Return Date: {borrowing['expected_return_date']}\n"
+                f"*Actual Return Date: {borrowing['actual_return_date']}"
+            )
 
             async_to_sync(send_borrowing_notification)(message)
 
