@@ -1,3 +1,4 @@
+from asgiref.sync import async_to_sync
 from django.apps import apps
 from django.db import transaction
 from django.utils import timezone
@@ -14,6 +15,7 @@ from borrowing.serializers import (
     BorrowingCreateSerializer,
     BorrowingReturnSerializer,
 )
+from telegram_bot import send_borrowing_notification
 
 
 class BorrowingViewSet(viewsets.ModelViewSet):
@@ -96,3 +98,22 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                     )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+      
+    def create(self, request, *args, **kwargs):
+        response = super().create(request, *args, **kwargs)
+
+        if response.status_code == status.HTTP_201_CREATED:
+            borrowing = response.data
+            message = (
+                f"New Borrowing Created:\n"
+                f"*ID: {borrowing['id']}\n"
+                f"*Book ID: {borrowing['book']}\n"
+                f"*User ID: {borrowing['user']}\n"
+                f"*Borrow Date: {borrowing['borrow_date']}\n"
+                f"*Expected Return Date: {borrowing['expected_return_date']}\n"
+            )
+
+            async_to_sync(send_borrowing_notification)(message)
+
+        return response
+      
