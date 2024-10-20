@@ -9,8 +9,13 @@ class PaymentSerializer(serializers.ModelSerializer):
             "id",
             "status",
             "type",
-            "borrowing_id",
+            "borrowing",
             "session_url",
             "session_id",
             "money_to_pay",
         )
+
+
+class PaymentCreateSerializer(serializers.Serializer):
+    borrowing_id = serializers.IntegerField(required=True)
+    money = serializers.DecimalField(max_digits=10, decimal_places=2, required=True)
