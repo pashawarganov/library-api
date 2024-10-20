@@ -2,6 +2,7 @@ from datetime import date
 
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from rest_framework.exceptions import ValidationError
 
 from book.models import Book
@@ -29,6 +30,9 @@ class Borrowing(models.Model):
         )
 
     def clean(self):
+        if self.borrow_date is None:
+            self.borrow_date = timezone.now().date()
+
         if self.expected_return_date and self.expected_return_date < self.borrow_date:
             raise ValidationError(
                 "Expected return date cannot be set up earlier than the borrow date."

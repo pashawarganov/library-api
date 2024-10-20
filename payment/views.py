@@ -6,16 +6,17 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import viewsets
+from rest_framework.views import APIView
 
 from payment.models import Payment
 from borrowing.models import Borrowing
-from payment.serializers import PaymentSerializer
+from payment.serializers import PaymentSerializer, PaymentCreateSerializer
 
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 FINE_MULTIPLIER = 2
+
 
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
@@ -23,9 +24,12 @@ class PaymentViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def create(self, request, *args, **kwargs):
-        data = request.data
-        borrowing_id = data.get("borrowing_id")
-        amount = data.get("money")
+        serializer = PaymentCreateSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        borrowing_id = serializer.validated_data["borrowing_id"]
+        amount = serializer.validated_data["money"]
 
         borrowing = get_object_or_404(Borrowing, id=borrowing_id)
 
@@ -40,7 +44,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
             money_to_pay = overdue_days * daily_fee * FINE_MULTIPLIER
 
             payment_fine = Payment.objects.create(
-                borrowing_id=borrowing,
+                borrowing=borrowing,
                 session_url="",
                 session_id="",
                 money_to_pay=money_to_pay,
@@ -73,7 +77,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
                     success_url=success_url,
                     cancel_url=cancel_url,
                 )
-            except Exception as e:
+            except stripe.error.StripeError as e:
                 return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
             payment_fine.session_url = session.url
@@ -114,11 +118,11 @@ class PaymentViewSet(viewsets.ModelViewSet):
                 success_url=success_url,
                 cancel_url=cancel_url,
             )
-        except Exception as e:
+        except stripe.error.StripeError as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
         payment = Payment.objects.create(
-            borrowing_id=borrowing,
+            borrowing=borrowing,
             session_url=session.url,
             session_id=session.id,
             money_to_pay=amount,
@@ -155,6 +159,8 @@ class PaymentSuccessView(APIView):
                     {"message": "Payment not completed yet."},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+        except stripe.error.StripeError as e:
+            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
         except Exception as e:
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
