@@ -63,17 +63,17 @@ class ManageUserViewTest(TestCase):
 
     def test_manage_user_view_authenticated(self):
         response = self.client.post(
-            reverse("users:token_obtain_pair"),
+            reverse("user:token_obtain_pair"),
             {"email": "testuser@example.com", "password": "password123"},
         )
         token = response.data["access"]
 
         self.client.credentials(HTTP_AUTHORIZE="Bearer " + token)
-        response = self.client.get(reverse("users:manage"))
+        response = self.client.get(reverse("user:manage"))
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data["email"], "testuser@example.com")
 
     def test_manage_user_view_unauthenticated(self):
-        response = self.client.get(reverse("users:manage"))
+        response = self.client.get(reverse("user:manage"))
         self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)

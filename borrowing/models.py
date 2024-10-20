@@ -1,7 +1,9 @@
 from datetime import date
 
+from django.apps import apps
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from rest_framework.exceptions import ValidationError
 
 from book.models import Book
@@ -29,6 +31,8 @@ class Borrowing(models.Model):
         )
 
     def clean(self):
+        super().clean()
+
         if self.expected_return_date and self.expected_return_date < self.borrow_date:
             raise ValidationError(
                 "Expected return date cannot be set up earlier than the borrow date."
@@ -45,5 +49,28 @@ class Borrowing(models.Model):
             )
 
     def save(self, *args, **kwargs):
+        if not self.borrow_date:
+            self.borrow_date = date.today()
+
         self.full_clean()
         super().save(*args, **kwargs)
+
+    def return_borrowing(self):
+        if self.actual_return_date is not None:
+            raise ValidationError("The book is already returned.")
+
+        self.actual_return_date = timezone.now().date()
+        self.book.inventory += 1
+        self.save()
+
+        if self.actual_return_date > self.expected_return_date:
+            overdue_days = (self.actual_return_date - self.expected_return_date).days
+            fine_amount = overdue_days * self.book.daily_fee * 2
+
+            payment = apps.get_model("payment", "Payment")
+            payment.objects.create(
+                borrowing=self,
+                money_to_pay=fine_amount,
+                status="PENDING",
+                type="FINE",
+            )

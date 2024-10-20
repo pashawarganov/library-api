@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     # custom apps
     "borrowing",
     "book",
-    "user"
+    "user",
+    "payment",
 ]
 
 MIDDLEWARE = [
@@ -164,3 +165,5 @@ SPECTACULAR_SETTINGS = {
         "defaultModelExpandDepth": 2,
     },
 }
+
+STRIPE_SECRET_KEY = os.getenv("STRIPE_SECRET_KEY")
