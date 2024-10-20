@@ -36,7 +36,15 @@ class PaymentTestCase(TestCase):
 
         self.payment_url = reverse("payment:payment-list")
 
-    def test_create_payment(self):
+    @patch("stripe.checkout.Session.create")
+    def test_create_payment(self, mock_create):
+        mock_create.return_value = type(
+            "Session", (object,), {
+                "id": "test_session_id",
+                "url": "http://test.com/session",
+                "payment_status": "pending"
+            }
+        )
         data = {"borrowing_id": self.borrowing.id, "money": 20.00}
 
         response = self.client.post(self.payment_url, data)
@@ -47,7 +55,15 @@ class PaymentTestCase(TestCase):
         self.assertEqual(payment.status, "PENDING")
         self.assertEqual(payment.type, "PAYMENT")
 
-    def test_create_fine_payment(self):
+    @patch("stripe.checkout.Session.create")
+    def test_create_fine_payment(self, mock_create):
+        mock_create.return_value = type(
+            "Session", (object,), {
+                "id": "test_session_id",
+                "url": "http://test.com/session",
+                "payment_status": "pending"
+            }
+        )
         self.borrowing.actual_return_date = timezone.now() + timedelta(days=10)
         self.borrowing.save()
 
@@ -90,7 +106,6 @@ class PaymentTestCase(TestCase):
         success_url = reverse("payment:payment-success") + "?session_id=test_session_id"
         response = self.client.get(success_url)
 
-        print(response.content)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
 
         payment.refresh_from_db()
