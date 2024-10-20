@@ -8,8 +8,10 @@ from borrowing.serializers import (
     BorrowingSerializer,
     BorrowingCreateSerializer,
 )
+from borrowing.schemas.borowings import borrowing_list_schema
 
 
+@borrowing_list_schema
 class BorrowingViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 
