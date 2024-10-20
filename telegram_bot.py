@@ -38,6 +38,7 @@ router = Router()
 
 dp.include_router(router)
 
+
 async def send_borrowing_notification(message: str) -> None:
     """
     Func to send messages to telegram
@@ -56,7 +57,6 @@ async def main() -> None:
         logger.info("Test mode: Skipping dispatcher polling")
 
     await dp.start_polling(bot)
-
 
 
 if __name__ == "__main__":

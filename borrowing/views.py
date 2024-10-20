@@ -98,7 +98,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                     )
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-      
+
     def create(self, request, *args, **kwargs):
         response = super().create(request, *args, **kwargs)
 
@@ -116,4 +116,3 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             async_to_sync(send_borrowing_notification)(message)
 
         return response
-      

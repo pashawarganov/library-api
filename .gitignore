@@ -352,3 +352,7 @@ poetry.toml
 pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,django,pycharm+all
+
+celerybeat-schedule.dat
+celerybeat-schedule.bak
+celerybeat-schedule.dir

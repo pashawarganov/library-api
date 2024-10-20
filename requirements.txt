@@ -1,3 +1,4 @@
+amqp==5.2.0
 aiofiles==24.1.0
 aiogram==3.13.1
 aiohappyeyeballs==2.4.3
@@ -7,11 +8,17 @@ alembic==1.13.3
 annotated-types==0.7.0
 anyio==4.6.2.post1
 asgiref==3.8.1
+billiard==4.2.1
 attrs==24.2.0
 black==24.10.0
+celery==5.4.0
 certifi==2024.8.30
 charset-normalizer==3.4.0
 click==8.1.7
+click-didyoumean==0.3.1
+click-plugins==1.1.1
+click-repl==0.3.0
+colorama==0.4.6
 coverage==7.6.3
 dbos==0.10.0
 Deprecated==1.2.14
@@ -32,6 +39,7 @@ httpcore==1.0.6
 httptools==0.6.4
 httpx==0.27.2
 idna==3.10
+kombu==5.4.2
 importlib_metadata==8.4.0
 Jinja2==3.1.4
 jsonpickle==3.3.0
@@ -53,6 +61,7 @@ opentelemetry-semantic-conventions==0.48b0
 packaging==24.1
 pathspec==0.12.1
 platformdirs==4.3.6
+prompt_toolkit==3.0.48
 propcache==0.2.0
 protobuf==4.25.5
 psutil==6.1.0
@@ -64,10 +73,14 @@ Pygments==2.18.0
 PyJWT==2.9.0
 python-dateutil==2.9.0.post0
 python-dotenv==1.0.1
+redis==5.1.1
+python-dateutil==2.9.0.post0
+python-dotenv==1.0.1
 python-multipart==0.0.12
 PyYAML==6.0.2
 referencing==0.35.1
 requests==2.32.3
+six==1.16.0
 rich==13.9.2
 rpds-py==0.20.0
 shellingham==1.5.4
@@ -82,6 +95,8 @@ typer==0.12.5
 typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.2.3
+vine==5.1.0
+wcwidth==0.2.13
 uvicorn==0.32.0
 uvloop==0.21.0
 watchfiles==0.24.0
