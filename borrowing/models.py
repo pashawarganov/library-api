@@ -31,7 +31,8 @@ class Borrowing(models.Model):
         )
 
     def clean(self):
-        super().clean()
+        if self.borrow_date is None:
+            self.borrow_date = timezone.now().date()
 
         if self.expected_return_date and self.expected_return_date < self.borrow_date:
             raise ValidationError(
