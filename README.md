@@ -97,8 +97,8 @@ To load sample data into the database, run:
 - Register a new user or log in with an existing user.
     Example credentials:
 
-    - Login: michael_no_jackson
-    - Password: 1qazxcde3
+    - Email: `vito.scaletta@library.com`
+    - Password: `1qazcde3`
 - Borrow a book by making a POST request to /api/borrowings/.
 
 - Make a payment for the borrowed book by making a POST request to /api/payments/.
