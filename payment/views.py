@@ -1,23 +1,25 @@
 import stripe
+from asgiref.sync import async_to_sync
 from django.conf import settings
 from django.shortcuts import get_object_or_404
 from django.urls import reverse
-
+from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework import viewsets
 from rest_framework.views import APIView
 
-from payment.models import Payment
 from borrowing.models import Borrowing
+from payment.models import Payment
 from payment.serializers import PaymentSerializer, PaymentCreateSerializer
-
+from telegram_bot import send_borrowing_notification
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 FINE_MULTIPLIER = 2
 
 
+@extend_schema(request=PaymentCreateSerializer)
 class PaymentViewSet(viewsets.ModelViewSet):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
@@ -134,6 +136,7 @@ class PaymentViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
+@extend_schema(responses={200: PaymentSerializer})
 class PaymentSuccessView(APIView):
     def get(self, request):
         session_id = request.query_params.get("session_id")
@@ -146,9 +149,24 @@ class PaymentSuccessView(APIView):
         try:
             session = stripe.checkout.Session.retrieve(session_id)
             if session.payment_status == "paid":
-                payment = get_object_or_404(Payment, session_id=session_id)
+                payment = get_object_or_404(
+                    Payment.objects.select_related(
+                        "borrowing__user",
+                        "borrowing__book"
+                    ),
+                    session_id=session_id
+                )
                 payment.status = "PAID"
                 payment.save()
+                message = (
+                    f"Payment Successful:\n"
+                    f"*Payment ID: {payment.id}\n"
+                    f"*Amount: {session.amount_total / 100} {session.currency.upper()}\n"
+                    f"*User ID: {payment.borrowing.user.email}\n"
+                    f"*Book title: {payment.borrowing.book.title}\n"
+                    f"*Borrowing ID: {payment.borrowing.id}\n"
+                )
+                async_to_sync(send_borrowing_notification)(message)
 
                 return Response(
                     {"message": "Payment was successful and marked as paid."},
@@ -165,6 +183,7 @@ class PaymentSuccessView(APIView):
             return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@extend_schema(responses={200: PaymentSerializer})
 class PaymentCancelView(APIView):
     def get(self, request):
         return Response(

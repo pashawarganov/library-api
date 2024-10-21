@@ -96,18 +96,17 @@ class PaymentTestCase(TestCase):
         )
 
         mock_create.return_value = type(
-            "Session", (object,), {"id": "test_session_id", "payment_status": "paid"}
+            "Session", (object,), {"id": "test_session_id", "payment_status": "paid", "amount_total": 100, "currency": "USD"}
         )
 
         mock_retrieve.return_value = type(
-            "Session", (object,), {"id": "test_session_id", "payment_status": "paid"}
+            "Session", (object,), {"id": "test_session_id", "payment_status": "paid", "amount_total": 100, "currency": "USD"}
         )
 
         success_url = reverse("payment:payment-success") + "?session_id=test_session_id"
         response = self.client.get(success_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-
         payment.refresh_from_db()
         self.assertEqual(payment.status, "PAID")
 
