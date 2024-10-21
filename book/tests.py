@@ -37,7 +37,7 @@ class BookTests(APITestCase):
     def test_list_books(self):
         response = self.client.get(reverse("book:book-list"))
         self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 1)
+        self.assertEqual(len(response.data["results"]), 1)
 
     def test_create_book_as_admin(self):
         self.client.credentials(HTTP_AUTHORIZE="Bearer " + self.admin_token)

@@ -162,7 +162,7 @@ class PaymentSuccessView(APIView):
                     f"Payment Successful:\n"
                     f"*Payment ID: {payment.id}\n"
                     f"*Amount: {session.amount_total / 100} {session.currency.upper()}\n"
-                    f"*User ID: {payment.borrowing.user.email}\n"
+                    f"*User email: {payment.borrowing.user.email}\n"
                     f"*Book title: {payment.borrowing.book.title}\n"
                     f"*Borrowing ID: {payment.borrowing.id}\n"
                 )
