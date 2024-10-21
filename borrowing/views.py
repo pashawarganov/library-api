@@ -111,11 +111,11 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             )
             message = (
                 f"New Borrowing Created:\n"
-                f"*ID: {borrowing['id']}\n"
-                f"*Book ID: {borrowing['book']}\n"
-                f"*User ID: {borrowing['user']}\n"
-                f"*Borrow Date: {borrowing['borrow_date']}\n"
-                f"*Expected Return Date: {borrowing['expected_return_date']}\n"
+                f"*ID: {borrowing.id}\n"
+                f"*Book title: {borrowing.book.title}\n"
+                f"*User email: {borrowing.user.email}\n"
+                f"*Borrow Date: {borrowing.borrow_date}\n"
+                f"*Expected Return Date: {borrowing.expected_return_date}\n"
             )
 
             async_to_sync(send_borrowing_notification)(message)
