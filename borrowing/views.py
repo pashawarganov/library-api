@@ -60,7 +60,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
 
     @action(detail=True, methods=["POST"], url_path="return", url_name="return-book")
     def return_book(self, request, pk=None):
-        borrowing = self.get_object()
+        borrowing = self.get_queryset().select_related("book", "user").get(pk=pk)
 
         serializer = self.get_serializer(borrowing, data=request.data, partial=True)
 
@@ -106,7 +106,9 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         response = super().create(request, *args, **kwargs)
 
         if response.status_code == status.HTTP_201_CREATED:
-            borrowing = response.data
+            borrowing = Borrowing.objects.select_related("book", "user").get(
+                id=response.data["id"]
+            )
             message = (
                 f"New Borrowing Created:\n"
                 f"*ID: {borrowing['id']}\n"
