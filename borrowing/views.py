@@ -15,9 +15,12 @@ from borrowing.serializers import (
     BorrowingCreateSerializer,
     BorrowingReturnSerializer,
 )
+from borrowing.schemas.borowings import borrowing_list_schema
 from telegram_bot import send_borrowing_notification
 
 
+
+@borrowing_list_schema
 class BorrowingViewSet(viewsets.ModelViewSet):
     permission_classes = (IsAuthenticated,)
 

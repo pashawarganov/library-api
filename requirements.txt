@@ -27,6 +27,7 @@ django-crispy-forms==2.3
 django-debug-toolbar==4.4.6
 djangorestframework==3.15.2
 djangorestframework-simplejwt==5.3.1
+drf-spectacular==0.27.2
 dnspython==2.7.0
 email_validator==2.2.0
 fastapi==0.115.2
